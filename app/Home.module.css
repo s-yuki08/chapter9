@@ -1,0 +1,88 @@
+/* ===== 記事一覧 ===== */
+.posts {
+  margin-top: 24px;
+}
+
+.posts__title {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.posts__lists {
+  margin-top: 16px;
+}
+
+.posts__list-archive-link {
+  display: block;
+  border-bottom: 1px solid var(--border);
+  transition: opacity 0.3s;
+}
+
+@media (any-hover: hover) {
+  .posts__list-archive-link:hover {
+    opacity: 0.7;
+  }
+}
+.posts__list-archive {
+  display: flex;
+  gap: 16px;
+  padding-block: 16px;
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+  }
+}
+
+.posts__list-img {
+  max-width: 200px;
+  width: 100%;
+
+  @media screen and (max-width: 767px) {
+    max-width: 100%;
+  }
+}
+
+.posts__list-img img {
+  aspect-ratio: 200/120;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.posts__list-body {
+  flex: 1;
+}
+
+.posts__list-body-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.posts__list-body-time {
+  font-size: 0.95rem;
+}
+
+.posts__list-body-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.posts__list-body-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.posts__list-body-text {
+  font-size: 1rem;
+  margin-top: 8px;
+  line-height: 1.6;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
