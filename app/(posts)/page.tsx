@@ -30,7 +30,7 @@ export default async function Page() {
             >
               <div className={classes['posts__list-archive']}>
                 <div className={classes['posts__list-img']}>
-                  <img
+                  <Image
                     src={post.thumbnailUrl}
                     alt={post.title}
                     width={800}
@@ -67,5 +67,3 @@ export default async function Page() {
     </div>
   )
 }
-
-// export default Home
