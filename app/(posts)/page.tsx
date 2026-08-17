@@ -2,20 +2,23 @@ import Link from 'next/link';
 import Image from 'next/image'
 import classes from './Home.module.css'
 import Category from './_components/Category'
-import type { Post } from './_types/Post'
+import type { MicroCmsPost } from './_types/MicroCmsPost'
 
 
 export default async function Page() {
   const res = await fetch(
-    'https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts'
-  )
+    'https://btlktymkz4.microcms.io/api/v1/posts', {
+    headers: {
+      'X-MICROCMS-API-KEY': 'Hu4xV7pmbNw0q52P2PgZ4Ze6LhaQqQiW20V9',
+    },
+  })
 
   if (!res.ok) {
     throw new Error('記事の取得に失敗しました')
   }
 
-  const data = await res.json()
-  const posts: Post[] = data.posts
+  const { contents } = await res.json()
+  const posts: MicroCmsPost[] = contents
 
   return (
     <div className={classes.posts}>
@@ -31,7 +34,7 @@ export default async function Page() {
               <div className={classes['posts__list-archive']}>
                 <div className={classes['posts__list-img']}>
                   <Image
-                    src={post.thumbnailUrl}
+                    src={post.thumbnail.url}
                     alt={post.title}
                     width={800}
                     height={400}
@@ -47,7 +50,7 @@ export default async function Page() {
                     </time>
                     <div className={classes['posts__list-body-categories']}>
                       {post.categories.map((category) => (
-                        <Category key={category}>{category}</Category>
+                        <Category key={category.id}>{category.name}</Category>
                       ))}
                     </div>
                   </div>
