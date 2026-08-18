@@ -16,7 +16,8 @@ export default async function Page({ params }: Props) {
     const res = await fetch(
         `https://btlktymkz4.microcms.io/api/v1/posts/${id}`, {
         headers: {
-            'X-MICROCMS-API-KEY': 'Hu4xV7pmbNw0q52P2PgZ4Ze6LhaQqQiW20V9',
+            'X-MICROCMS-API-KEY': process.env
+                .NEXT_PUBLIC_MICROCMS_API_KEY as string,
         },
     })
 
