@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { notFound } from 'next/navigation'
 import classes from './PostDetail.module.css'
 import Category from '../../_components/Category'
-import type { Post } from '../../_types/Post'
+import type { MicroCmsPost } from '../../_types/MicroCmsPost'
 
 type Props = {
     params: Promise<{
@@ -13,25 +14,25 @@ type Props = {
 export default async function Page({ params }: Props) {
     const { id } = await params
     const res = await fetch(
-        `https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${id}`
-    )
+        `https://btlktymkz4.microcms.io/api/v1/posts/${id}`, {
+        headers: {
+            'X-MICROCMS-API-KEY': process.env
+                .NEXT_PUBLIC_MICROCMS_API_KEY as string,
+        },
+    })
 
     if (!res.ok) {
         notFound()
     }
 
-    const data = await res.json()
-    const post: Post | null = data.post
-    if (!post) {
-        notFounf()
-    }
+    const post: MicroCmsPost = await res.json()
 
     return (
         <div className={classes.detail} >
             <div className="inner">
                 <div className={classes.detail__img}>
                     <Image
-                        src={post.thumbnailUrl}
+                        src={post.thumbnail.url}
                         alt={post.title}
                         width={800}
                         height={400}
@@ -48,7 +49,7 @@ export default async function Page({ params }: Props) {
                         </time>
                         <div className={classes['detail__body-categories']}>
                             {post.categories.map((category) => (
-                                <Category key={category}>{category}</Category>
+                                <Category key={category.id}>{category.name}</Category>
                             ))}
                         </div>
                     </div>
